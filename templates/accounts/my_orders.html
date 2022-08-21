@@ -1,0 +1,112 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content%}
+
+<body>
+    
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+{% include 'includes/alerts.html' %}
+<div class="container">
+	<div class="row">
+        {% include 'includes/dashboard_sidebar.html' %}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Your Order History</strong>
+			
+		</header>
+    {% if not orders %}
+    <br>
+    <div>
+    <h4 class="text-center">No Orders to display</h4><br>
+    <div class="text-center mb-4">
+      <a href="{% url 'store' %}" class="btn btn-primary col-6">Shop Now</a>
+    </div>
+    {% else %}
+		<div class="card-body  shadow p-3 mb-5 bg-white rounded">
+			<div class="row "> 
+				<div class="col-md-12 ">
+                    <table class="table table-hover table-responsive">
+                        <thead>
+                          <tr>
+                            <th scope="col">Order #</th>
+                            <th scope="col">Ordered By</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Payment ID</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                             
+                              {% for orderproduct in orderproducts %}
+                          <tr>
+                            <th scope="row"><a href="{% url 'order_detail' orderproduct.order.order_number %}">{{orderproduct.order.order_number}}</a></th>
+                            <td>{{orderproduct.order.full_name}}</td>
+                            <td>₹{{orderproduct.order.order_total}}</td>
+                            <td>{{orderproduct.order.created_at|date}}</td>
+                            <td>{{orderproduct.order.payment}}</td>
+                            {% if orderproduct.status == 'New' %}
+                            <td><a href="{%  url 'cancel_order' orderproduct.id %}" onclick="return confirm('Are you sure you want to cancel this order?')"class="btn btn-sm btn-outline-danger" >Cancel</a></td>
+                            {% elif orderproduct.status == 'Cancelled'  %}
+                            <td><button class="btn btn-sm btn-warning" disabled>Cancelled</button></td>
+                            {% elif orderproduct.status == 'Placed'%}
+                            <td><a href="{%  url 'cancel_order' orderproduct.id %}" class="btn btn-sm btn-outline-primary">Placed</a>
+                            {% elif orderproduct.status == 'Shipped'%}
+                            <td><a href="{%  url 'cancel_order' orderproduct.id %}" class="btn btn-sm btn-outline-info">Shipped</a>
+                            {% elif orderproduct.status == 'Accepted'%}
+                            <td><a href="{%  url 'cancel_order' orderproduct.id %}" class="btn btn-sm btn-outline-dark">Accepted</a>
+                            {% elif orderproduct.status == 'Delivered'%}
+                            <td><button class="btn btn-sm btn-success" disabled>Delivered</button>
+                            {% endif %}
+                          </tr>
+                      {% endfor %}
+                    
+      
+                        </tbody>
+                      </table>
+				</div>
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+    {% endif %}
+		</article> <!-- order-group.// --> 
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+
+<!-- <script>
+	function cancelOrder() {
+		        event.preventDefault();
+		        var dlt = event.currentTarget.href
+		        console.log(dlt)
+		Swal.fire({
+			title: 'Cancel this order?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#2DAD49',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Cancel Order',
+      cancelButtonText: 'Back',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				
+				window.location = dlt;
+			}
+		})
+	}
+</script> -->
+</body>
+{% endblock %}

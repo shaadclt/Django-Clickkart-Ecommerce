@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'includes/dashboard_sidebar.html' %}
+<main class="col-md-9">
+    <article class="card  shadow-lg p-3 mb-5 bg-white rounded">
+        <header class="card-header">
+            <strong class="d-inline-block mr-3">Edit Address</strong>
+           
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        {{ form.first_name | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.last_name | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.phone_number | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.email | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.address_line_1 | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.address_line_2 | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.city | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.state | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.pincode | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.country | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.address_type | as_crispy_field }}
+                    </div>
+               
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary w-50" value="Update Address">
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+{% endblock %}

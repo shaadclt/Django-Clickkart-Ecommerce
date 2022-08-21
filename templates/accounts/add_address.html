@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+
+{% block content %}
+
+<body>
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y bg">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'includes/dashboard_sidebar.html' %}
+<main class="col-md-9">
+
+    <article class="card">
+        <header class="card-header">
+            <strong class="d-inline-block mr-3">Addresses</strong>
+        </header>
+        <div class="card-body">
+            <div class="row">
+                {% for address in addresses %}
+                    <div class="col-md-6" id="{{ address.id }}">
+                        <figure class="itemside  mb-4 card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="text-center align-items-center">
+                                        <h5 class="">{{ address.full_name }}</h5>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary">{{ address.address_type }}</button>
+                                    </div>
+                                </div>
+                                <p class="small-gray-text">{{ address.phone_number }}</p>
+                                <p class="small-gray-text">{{ address.email }}</p>
+                                <p class="small-gray-text">{{ address.address_line_1 }}</p>
+                                <p class="small-gray-text">{{ address.address_line_2 }}</p>
+                                <p class="small-gray-text">{{ address.city }}</p>
+                                <p class="small-gray-text">{{ address.state }}</p>
+                                <p class="small-gray-text">{{ address.pincode }}</p>
+                                <p class="small-gray-text">{{ address.country }}</p>
+                                <hr>
+                                <div class="bottom d-flex justify-content-between">
+                                    {% if not address.default %}
+                                    <div>
+                                        <a href="{% url 'set_default_address' address.id %}"
+                                           class="right small-gray-text d-flex justify-content-between">Set
+                                            as default</a>
+                                    </div>
+                                    {% else %}
+                                        <p class="small-gray-text" style="color:green;">Default Address</p>
+                                    {% endif %}
+                                    <div class="left">
+                                        <p class="small-gray-text">
+                                            <a href="{% url 'edit_address' address.id %}"
+                                               class="small-gray-text" style="color: navy;">Edit</a>
+                                            <span> |
+                                                <a href="{% url 'delete_address' address.id %}" class="small-gray-text"
+                                                onclick="return confirm('Are you sure you want to delete this address?')" style="color: red;">Delete</a>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+                {% empty %}
+                    <p>No Saved Addresses</p>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+
+    <div class="card mt-3 shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-header">
+            <strong> Add address </strong>
+        </div>
+        <div class="card-body">
+            <form action="" method="post" id="add_address">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        {{ form.first_name | as_crispy_field}}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.last_name | as_crispy_field}}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.phone_number | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.email | as_crispy_field }}
+                    </div>
+                    
+                    <div class="col-sm-6 form-group">
+                        {{ form.address_line_1 | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.address_line_2 | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.city | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.state | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.pincode | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.country | as_crispy_field }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        {{ form.address_type | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary w-50" value="Add Address">
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</div> <!-- row.// -->
+</div>
+
+    <!-- <script>
+        function deleteAddress() {
+            event.preventDefault();
+            var dlt = event.currentTarget.href
+            console.log(dlt)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    window.location = dlt;
+                }
+            })
+        }
+    </script> -->
+</section>
+
+<script src="{% static 'js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+<script src="{% static 'js/add_address.js' %}"></script>
+<style>
+  .error{
+    color: red!important;      
+  }
+ </style> 
+ </body>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,95 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container" >
+	<section>
+		<div class="row active_user_table  shadow p-3 mb-5 bg-white rounded">
+			<div class="table-responsive">
+				<!-- <div>
+					<a href="#"><button class="btn btn-primary">Add Brand</button></a>
+				</div> -->
+				<caption>
+					<p class="table_caption d-flex justify-content-center font-weight-bold mt-5"><h4>Product Report</h4></p>
+				</caption>
+			
+					<!-- <form action="" method="get" class="mb-4">
+					<div class="form-row d-flex justify-content-start">
+						<div class="form-group col-6 col-md-3">
+							<label>From</label>
+							<input type="date" class="form-control" name="from">
+						</div>
+						<div class="form-group col-6 col-md-3">
+							<label>To</label>
+							<input type="date" class="form-control" name="to">
+						</div>
+						<div class="form-group col-6 col-md-3 mb-4 mt-4">
+							<input type="submit" class="btn  btn-outline-primary" value="Filter">
+						</div>
+					</div>
+				</form> -->
+
+				<div class="d-flex justify-content-end mb-4 px-10">
+					<a href="{% url 'product_export_csv' %}" class="btn btn-sm btn-success mr-2">Export
+						as CSV</a>
+					<a href="{% url 'product_export_pdf' %}" class="btn btn-sm btn-danger">Export
+						as PDF</a>
+				</div>
+							
+				<table class="data-table table hover multiple-select-row nowrap" id="pro">
+					<thead>
+						<tr>
+							<th scope="col">Index</th>
+							<th>Product Name</th>
+                            <th>Category Name</th>
+                            <th>Rating</th>
+							<th scope="col">Price</th>
+							<th scope="col">Stock</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						{% for product in  products %}
+
+						<tr>
+							<th scope="row">{{forloop.counter}}</th>
+							<td>{{product.product_name}}</td>
+							<td>{{product.category}}</td>
+							<td>{{product.averageReview}}</td>
+                            <td>₹ {{product.price}}</td>
+                            <td>{{product.stock}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	</div>  
+	
+	
+
+{% endblock %}
+
+{% block script %}
+
+
+
+
+
+<script>
+  $(document).ready( function () {
+	$('#pro').DataTable();
+} );
+</script>
+
+
+<script>
+	$(document).ready( function () {
+	  $('#order').DataTable();
+  } );
+  </script>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+
+    <!-- {% for message in messages %}
+    <div id="message" class="container">
+    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+        {{ message }}
+    </div>
+</div>
+    {% endfor %} -->
+
+{% if messages %}
+{% for message in messages %}
+    
+<script>
+    {% if message.tags == 'success' %}
+    var m = '{{message}}';
+    swal({
+        title: "Success!",
+        text: m,
+        icon: "success",
+      });
+      {% elif message.tags != 'success' %}
+      var m = '{{message}}';
+      swal({
+        title: "Error!",
+        text: m,
+        icon: "error",
+      });
+    {% endif %}
+</script>
+
+    {% endfor %}
+    {% endif %}

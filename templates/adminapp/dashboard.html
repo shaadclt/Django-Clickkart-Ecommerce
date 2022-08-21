@@ -1,0 +1,182 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block maincontainer %}
+    <div class="main-container">
+		<!-- {% for x in messages %}
+	<h6 style="color: rgba(8, 253, 8, 0.487); font-size: small; text-align: center;">{{x}}</h6>
+	{%endfor%}
+		<div class="pd-ltr-20">
+			<div class="card-box pd-20 height-100-p mb-30">
+				<div class="row align-items-center">
+					<div class="col-md-4">
+						<img src="{% static 'vendors/images/banner-img.png' %}" alt="">
+					</div>
+					<div class="col-md-8">
+					</div>
+				</div>
+			</div> -->
+
+			<div class="row d-flex justify-content-between">
+				<div class="col-xl-3 mb-30 shadow p-3 mb-5 bg-white rounded">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="widget-data">
+                               <div class="weight-700 font-20 text-center">Total Revenue</div><br>
+								<div class="h4 mb-0 text-center">₹ {{total_revenue.order_total__sum|floatformat:2}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 mb-30 shadow p-3 mb-5 bg-white rounded">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="widget-data">
+                                <div class="weight-700 font-20 text-center">Total Orders</div><br>
+								<div class="h4 mb-0 text-center">{{total_orders}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 mb-30 shadow p-3 mb-5 bg-white rounded">
+					<div class="card-box height-100-p widget-style1">
+						<div class="d-flex flex-wrap align-items-center">
+							<div class="widget-data">
+                                <div class="weight-700 font-20 text-center">Total Products</div><br>
+								<div class="h4 mb-0 text-center">{{total_products}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row mt-7 d-flex justify-content-around">
+				
+			<div class="col-12 col-lg-5 card shadow p-3 mb-5 bg-white rounded">
+				<h5><p class="mt-4 text-center">Monthly Sales</p></h5>
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+            <div class="col-12 col-lg-5 card shadow p-3 mb-5 bg-white rounded">
+				<h5><p class="mt-4 text-center">Order Status</p></h5>
+                <canvas id="order_status" width="400" height="400"></canvas>
+            </div>
+			<!-- <div class="col-12 col-lg-5 card mt-4 shadow p-3 mb-5 bg-white rounded">
+				<p class="mt-4">Most Moving Products</p>
+                <canvas id="moving_products" width="400" height="400"></canvas>
+            </div> -->
+			</div>
+<script>
+
+        const myChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'Semptember', 'October', 'November', 'December'],
+            datasets: [{
+                label: 'Monthly Sales',
+                data: {{ monthly_order_count }},
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const myChart = document.getElementById('myChart').getContext('2d');
+        const myChartChart = new Chart(myChart, {
+            type: 'bar',
+            data: myChartData,
+        })
+
+
+
+			const order_statusData = {
+				labels: ['New', 'Placed', 'Shipped', 'Accepted', 'Delivered', 'Cancelled',],
+				datasets: [{
+					label: 'Most moving brands',
+					data:  {{ status_counter}},
+					backgroundColor: [
+						'rgb(255, 99, 132)',
+						'rgb(255, 159, 64)',
+						'rgb(255, 205, 86)',
+						'rgb(75, 192, 192)',
+						'rgb(25, 135, 84)',
+						'rgb(153, 102, 255)',
+						'rgb(201, 203, 207)'
+					],
+					hoverOffset: 4
+				}]
+			};
+			const order_status = document.getElementById('order_status').getContext('2d');
+			const order_statusChart = new Chart(order_status, {
+				type: 'pie',
+				data:  order_statusData,
+	
+			})
+
+			
+
+
+			const most_moving_productLabel = [
+			{% for i in most_moving_product%}
+			'{{ i }}',
+		{% endfor %}
+			]
+			const moving_products = document.getElementById('moving_products').getContext('2d');
+			const moving_productsChart = new Chart(moving_products, {
+				type: 'bar',
+				data: {
+					labels: most_moving_productLabel,
+		
+					datasets: [{
+						label: '# of Votes',
+						data: {{ most_moving_product_count}},
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',	
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)',
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)',
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)',
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)',
+						],
+						borderWidth: 1, 
+					}]
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true
+						}
+					}
+				}
+			});
+			
+
+</script>
+
+			
+  
+	
+	<script src="{% static 'js/apexcharts.min.js' %}"></script>
+	<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% endblock %}

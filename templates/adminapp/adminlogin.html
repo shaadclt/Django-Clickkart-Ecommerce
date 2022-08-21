@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="max-age=604800" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>Clickkart | One of the Biggest Online Shopping Platform</title>
+
+<link href="{% static 'images/favicon2.ico' %}" rel="shortcut icon" type="image/x-icon">
+
+<!-- jQuery -->
+<script src="{% static 'js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
+
+
+
+<!-- Bootstrap4 files-->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css"/>
+
+
+<!-- Font awesome 5 -->
+<link href="{% static 'fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
+
+<!-- custom style -->
+<link href="{% static 'css/ui.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+
+<link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- custom javascript -->
+<script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<script type="text/javascript">
+/// some script
+
+// jquery ready start
+$(document).ready(function() {
+	// jQuery code
+
+}); 
+// jquery end
+</script>
+
+
+</head>
+<body>
+
+
+     
+
+<section class="section-conten padding-y" style="min-height:84vh">
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+        
+
+
+    <div class="card mx-auto shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 380px; margin-top:100px;">
+            
+          <div class="card-body">
+          <h4 class="card-title mb-4">Admin Login</h4>
+          {% include 'includes/alerts.html' %}
+          <form action ="{% url 'adminlogin' %}" method="POST">
+           
+              <div class="form-group">
+                 <input type="email" class="form-control" placeholder="Email Address" name="email" >
+              </div> <!-- form-group// -->
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name="password" >
+              </div> <!-- form-group// -->
+              
+               
+              </div> <!-- form-group form-check .// -->
+              <div class="form-group">
+                  <button type="submit" class="btn btn-dark btn-block"> Login  </button>
+              </div> 
+              <div class="form-group">
+                <a href="{% url 'admin_change_password' %}" class="btn btn-dark btn-block"> Change Password </a>
+            </div>
+              <!-- form-group// -->    
+          </form>
+          </div> <!-- card-body.// -->
+        </div> <!-- card .// -->
+    
+         
+    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+    
+    
+    </section>
+
+

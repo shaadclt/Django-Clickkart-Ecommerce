@@ -1,0 +1,43 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+<section>
+    <div class="row active_user_table mt-5">
+        <div class="table-responsive shadow p-3 mb-5 bg-white rounded">
+            <caption><p class="table_caption font-weight-bold"><h3>Order History</h3></p></caption>
+            <table class="data-table table hover multiple-select-row nowrap" id="myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Payment Method</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for active_order in active_orders %}
+                    <tr>
+                        <th scope="row"><a href="{% url 'admin_order_detail' active_order.order.order_number %}">{{ active_order.order.order_number }}</a></th>
+                        <td>{{ active_order.user.full_name }}</td>
+                        <td>{{active_order.product }}</td>
+                        <td>{{active_order.payment.payment_method }}</td>
+                        <td>{{active_order.order.order_total}}</td>
+                        <td>{{active_order.quantity}}</td>
+                        <td>{{active_order.created_at|date}}</td>
+                        <td>{{active_order.status}}</td>
+                    </tr>   
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</div>
+
+{% endblock %}

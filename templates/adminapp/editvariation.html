@@ -1,0 +1,71 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load static%}
+
+{% block content %}
+
+
+
+<!--   
+
+  <section class="vh-100 bg-image">
+      <div class="mask d-flex align-items-center h-100 gradient-custom-3"> -->
+        <div class="container ">
+          <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-10 ">
+              <div class="card" style="border-radius: 8px;">
+              <div class="card-body p-5">
+                <h2 class="text-center mb-5">Edit Variation {{id}}</h2>
+  
+                <form action="" method="post" id="myForm" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    
+                  <div class="mainform">
+                    {{ form | crispy }}
+                    <!-- {% for msg in messages %}
+                    <h6 style="color:red; font-size: small;">{{msg}}</h6>
+                    {%endfor%} -->
+                    <div class="link">
+                      <br>
+                      <input type="submit" value="Update" class="btn btn-dark" id="btn-submit">
+                      <a href="{% url 'variationlist' %}" class="btn btn-warning">Cancel</a>
+                    </div>
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
+
+
+  {% block script %}
+  <script>
+    $(document).on('click', '#btn-submit', function(e){
+      e.preventDefault();
+      swal.fire({
+        title: "Do you want to update ?",
+        icon: "warning",
+        buttons:true,
+        dangerMode:true,
+        showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, Update It'
+      }).then(function (result){
+        
+        if(result.isConfirmed){
+          $('#myForm').submit();
+        } else{
+          
+        }
+      });
+    });
+  </script>  
+  {% endblock %}

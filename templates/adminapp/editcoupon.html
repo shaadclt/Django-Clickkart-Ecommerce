@@ -1,0 +1,70 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load static%}
+
+{% block content %}
+
+
+
+
+<!-- 
+<section class="vh-100 bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3"> -->
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-10">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-center mb-5">Edit Coupon {{id}}</h2>
+  
+                <form action="" method="post" id="myForm" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    
+                  <div class="mainform">
+                    {{ form | crispy }}
+                    <!-- {% for msg in messages %}
+                    <h6 style="color:red; font-size: small;">{{msg}}</h6>
+                    {%endfor%} -->
+                    <div class="form-group">
+                      <div id="image-box" class="image-container"></div>
+                      <button class="btn btn-dark" id="btn-submit" style="width: 100%; margin-top: 10px;" type="submit">Update</button>
+                      <a href="{% url 'couponlist' %}" class="btn btn-warning col-12 mt-4">Cancel</a>
+                    </div>
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
+ 
+  {% block script %}
+  <script>
+    $(document).on('click', '#btn-submit', function(e){
+      e.preventDefault();
+      swal.fire({
+        title: "Do you want to update ?",
+        icon: "warning",
+        buttons:true,
+        dangerMode:true,
+        showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, Update It'
+      }).then(function (result){
+        
+        if(result.isConfirmed){
+          $('#myForm').submit();
+        } else{
+          
+        }
+      });
+    });
+  </script>  
+  {% endblock %}

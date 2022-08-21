@@ -1,0 +1,151 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container" >
+	<section>
+		<div class="row active_user_table">
+			<div class="table-responsive">
+				<!-- <div>
+					<a href="#"><button class="btn btn-primary">Add Brand</button></a>
+				</div> -->
+				<caption>
+					<p class="table_caption"><h3> Product Variations</h3></p>
+				</caption>
+				<table class="data-table table hover multiple-select-row nowrap" id="myTable">
+					<thead>
+						<tr>
+							<th scope="col">Index</th>
+							<th>Product Name</th>
+							<th scope="col">Variation Category</th>
+							<th scope="col">Variation Value </th>
+							<!-- <th scope="col">Status</th> -->
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for variation in  variations %}
+
+						<tr>
+							<th scope="row">{{forloop.counter}}</th>
+							<td>{{variation.product}}</td>
+							<td>{{variation.variation_category}}</td>
+							<td>{{variation.variation_value}}</td>
+							
+                            <!-- {% if varient.is_active %}
+                            <td><a href="#" onclick="blockVarient()"><i class="fas fa-circle" style="color: green;"></i></a></td>  
+                            {% else %}
+                              <td><a href="#" onclick="unblockVarient()"><i class="fas fa-circle" style="color: red;"></i></a></td>
+                                {% endif %} -->
+                            <td><a href="{% url 'editvariation' variation.id %}"><i class="fas fa-pencil-alt"></i></a> <a href="{% url 'deletevariation' variation.id %}" style="margin-left: 15px;" onclick="deletevariation()"><i
+                                    class="far fa-trash-alt"></i></a>
+                            </td>
+							<!-- <td>
+								<a href="#" class="pr-5"><i class="fas fa-edit"></i></a>
+	
+								
+								<a onclick="delete_brand('{{brand.id}}')" type="button" data-toggle="modal"
+									data-target="#exampleModalCenter" style="color: red;"><i
+										class="fas fa-trash-alt"></i></a>
+							</td> -->
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+	</div>      
+
+<!-- js
+<script src="{% static 'vendors/scripts/core' %}"></script>
+<script src="{% static 'vendors/scripts/script.min' %}"></script>
+<script src="{% static 'vendors/scripts/process' %}"></script>
+<script src="{% static 'vendors/scripts/layout-settings' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/jquery.dataTables.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/dataTables.bootstrap4.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/dataTables.responsive.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/responsive.bootstrap4.min' %}"></script> -->
+<!-- buttons for Export datatable -->
+<!-- <script src="{% static 'src/plugins/datatables/js/dataTables.buttons.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/buttons.bootstrap4.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/buttons.print.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/buttons.html5.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/buttons.flash.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/pdfmake.min' %}"></script>
+<script src="{% static 'src/plugins/datatables/js/vfs_fonts' %}"></script> -->
+<!-- Datatable Setting js -->
+<!-- <script src="{% static 'vendors/scripts/datatable-setting' %}"></script> -->
+
+{% endblock %}
+
+{% block script %}
+<script>
+	function deletevariation() {
+		event.preventDefault();
+		var dlt = event.currentTarget.href
+		console.log(dlt)
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				
+				window.location = dlt;
+			}
+		})
+	}
+</script>
+
+<!-- 
+<script>
+	function blockVarient() {
+		event.preventDefault();
+		var block = event.currentTarget.href
+		console.log(block)
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, Block it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				
+				window.location = block;
+			}
+		})
+	}
+</script>
+
+<script>
+	function unblockVarient() {
+		event.preventDefault();
+		var unblock = event.currentTarget.href
+		console.log(unblock)
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, UnBlock it!'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				
+				window.location = unblock;
+			}
+		})
+	}
+</script> --> -->
+{% endblock %}

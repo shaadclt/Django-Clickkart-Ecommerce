@@ -1,0 +1,87 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+<section>
+    <div class="row active_user_table mt-5">
+        <div class="table-responsive shadow p-3 mb-5 bg-white rounded">
+            <caption><p class="table_caption font-weight-bold"><h3>Active Orders</h3></p></caption>
+            <table class="data-table table hover multiple-select-row nowrap" id="myTable">
+                <div class=" d-flex justify-content-center "><a href="{% url 'order_history' %}" class="btn btn-dark btn-sm col-4">Order History</a><br></div>
+                <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for active_order in active_orders %}
+                    <tr>
+                        <th scope="row"><a href="{% url 'admin_order_detail' active_order.order.order_number %}">{{ active_order.order.order_number }}</a></th>
+                        <td>{{ active_order.user.first_name }}</td>
+                        <td>{{active_order.product }}</td>
+                        <td>{{active_order.payment.payment_method }}</td>
+                        <td>{{active_order.order_total}}</td>
+                        <td>{{active_order.quantity}}</td>
+                        <td>{{active_order.created_at|date}}</td>
+                        <td>{{active_order.status}}</td>
+                        <td>
+                            <select onchange="order_status_change(event, '{{active_order.id}}')" style="background-color: grey; color: whitesmoke;" name="" id="order_status">
+                                <option value="">{{ active_order.status }}</option>
+                                {% if active_order.status != 'Placed' %}
+                                <option value="Placed">Placed</option>
+                                {% endif %}
+                                {% if active_order.status != 'Accepted' %}
+                                <option value="Accepted">Accepted</option>
+                                {% endif %}
+                                {% if active_order.status != 'Shipped' %}
+                                <option value="Shipped">Shipped</option>
+                                {% endif %}
+                                {% if active_order.status != 'Delivered' %}
+                                <option value="Delivered">Delivered</option>
+                                {% endif %}
+                                {% if active_order.status != 'Canceled' %}
+                                <option value="Canceled">Cancelled</option>
+                                {% endif %}
+                            </select>
+                        </td>
+                    </tr>   
+                    {% endfor %}
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</div>
+
+<script>
+    function order_status_change(event, active_order_id){
+        status = event.target.value
+        id = active_order_id
+        console.log(status, id)
+        $.ajax({
+            url: '/adminapp/order_status_change/',
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                id: id,
+                status: status,
+                csrfmiddlewaretoken: "{{csrf_token}}"
+            },
+            success: (response) => {
+                location.reload()
+            }
+        })
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% autoescape off %}
+
+Hello {{user.first_name}},
+
+Order No. {{order.order_number}} has been cancelled and refund initiated.
+
+This email was sent from a notification-only address that cannot accept incoming email. Please do not reply to this message.
+{% endautoescape %}

@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Output</title>
+    <style>
+        
+        @page{
+            size: "A4";
+            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+
+            @bottom-right {
+                content: "Page "counter(page) "of "counter(pages);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div  class="row " style="display: flex; justify-content: center;">
+        <h3 style="color: black; font-size: 25px;" class="font-weight-bold"><b style="color: black;" >Click</b>kart</h3>
+    </div>
+    <h2>Product Report</h2>
+    <table class="table mt-3">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">Index</th>
+                <th>Product Name</th>
+                <th>Category Name</th>
+                <th>Rating</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in  products %}
+
+            <tr class="table-active">
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{product.product_name}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.averageReview}}</td>
+                <td>₹ {{product.price}}</td>
+                <td>{{product.stock}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <style>
+        table {
+            border: 1px solid;
+            margin: 0 auto;
+            width: 100%;
+          }
+     
+          td, th {
+            text-align: center;
+            border: 1px solid;
+            width: 15px;
+          }
+          h2{
+              text-align: center;
+              color: #6B7AA1;
+          }
+    </style>
+</body>
+</html>

@@ -1,0 +1,143 @@
+{% extends 'adminapp/admin_base.html' %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load static%}
+
+{% block content %}
+
+
+
+
+<!-- 
+<section class="vh-100 bg-image" style="background-image: url('https://mdbootstrap.com/img/Photos/new-templates/search-box/img4.jpg');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3"> -->
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-10">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class=" text-center mb-5">Edit Category {{id}}</h2>
+  
+                <form action="" method="post" id="myForm" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    
+                  <div class="mainform">
+                    {{ form | crispy }}
+                    <!-- {% for msg in messages %}
+                    <h6 style="color:red; font-size: small;">{{msg}}</h6>
+                    {%endfor%} -->
+                    <div class="form-group">
+                      <div id="image-box" class="image-container"></div>
+                      <button class="btn btn-outline-info" id="crop-btn" style="width: 100%; margin-top: 10px; display: none;" type="button">Crop</button>
+                      <button class="btn btn-dark" id="confirm-btn" style="width: 100%; margin-top: 10px;" type="submit">Update</button>
+                      <a href="{% url 'categorylist' %}" class="btn btn-warning col-12 mt-4">Cancel</a>
+                    </div>
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}
+
+  
+  {% block script %}
+
+
+<script>
+	// image-box is the id of the div element that will store our cropping image preview
+	const imagebox = document.getElementById('image-box')
+        // crop-btn is the id of button that will trigger the event of change original file with cropped file.
+	const crop_btn = document.getElementById('crop-btn')
+	// id_image is the id of the input tag where we will upload the image
+	const input = document.getElementById('id_cat_image')
+
+	// When user uploads the image this event will get triggered
+	input.addEventListener('change', ()=>{
+	  // Getting image file object from the input variable
+	  const img_data = input.files[0]
+	  // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+	  // The new object URL represents the specified File object or Blob object.
+	  const url = URL.createObjectURL(img_data)
+	  
+	  // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+	  imagebox.innerHTML = `<img src="${url}" id="image" style="width:100%;">`
+
+	  // Storing that cropping view image in a variable
+	  const image = document.getElementById('image')
+
+	  // Displaying the image box
+	  document.getElementById('image-box').style.display = 'block'
+	  // Displaying the Crop buttton
+	  document.getElementById('crop-btn').style.display = 'block'
+	  // Hiding the Post button
+	  document.getElementById('confirm-btn').style.display = 'none'
+
+	  // Creating a croper object with the cropping view image
+	  // The new Cropper() method will do all the magic and diplay the cropping view and adding cropping functionality on the website
+	  // For more settings, check out their official documentation at https://github.com/fengyuanchen/cropperjs
+	  const cropper = new Cropper(image, {
+	  autoCropArea: 1,
+	  viewMode: 1,
+	  scalable: false,
+	  zoomable: false,
+	  movable: false,
+	  minCropBoxWidth: 200,
+	  minCropBoxHeight: 200,
+	  })
+
+	  // When crop button is clicked this event will get triggered
+	  crop_btn.addEventListener('click', ()=>{
+	    // This method coverts the selected cropped image on the cropper canvas into a blob object
+	    cropper.getCroppedCanvas().toBlob((blob)=>{
+	      
+	      // Gets the original image data
+	      let fileInputElement = document.getElementById('id_cat_image');
+	      // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+	      let file = new File([blob], img_data.name,{type:"image/*", lastModified:new Date().getTime()});
+	      // Create a new container
+	      let container = new DataTransfer();
+	      // Add the cropped image file to the container
+	      container.items.add(file);
+	      // Replace the original image file with the new cropped image file
+	      fileInputElement.files = container.files;
+
+	      // Hide the cropper box
+	      document.getElementById('image-box').style.display = 'none'
+	      // Hide the crop button
+	      document.getElementById('crop-btn').style.display = 'none'
+	      // Display the Post button
+	      document.getElementById('confirm-btn').style.display = 'block'
+
+	      });
+	    });
+	});	
+</script>
+  <script>
+    $(document).on('click', '#btn-submit', function(e){
+      e.preventDefault();
+      swal.fire({
+        title: "Do you want to update ?",
+        icon: "warning",
+        buttons:true,
+        dangerMode:true,
+        showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Yes, Update It'
+      }).then(function (result){
+        
+        if(result.isConfirmed){
+          $('#myForm').submit();
+        } else{
+          
+        }
+      });
+    });
+  </script>  
+  {% endblock %}

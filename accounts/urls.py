@@ -1,0 +1,30 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('usersignup/',views.usersignup,name='usersignup'),
+    path('usersignin/',views.usersignin,name='usersignin'),
+    path('usersignout',views.usersignout,name='usersignout'),
+    path('userdashboard/',views.userdashboard,name='userdashboard'),
+    path('',views.userdashboard,name='userdashboard'),
+    # path('activate/<uidb64>/<token>/',views.activate,name='activate'),
+    path('forgotPassword/',views.forgotPassword,name='forgotPassword'),
+    path('resetpassword_validate/<uidb64>/<token>/',views.resetpassword_validate,name='resetpassword_validate'),
+    path('resetPassword/',views.resetPassword,name='resetPassword'),
+    path('my_orders/',views.my_orders,name='my_orders'),
+    path('order_detail/<order_id>/',views.order_detail,name='order_detail'),
+    path("cancel_order/<int:pk>/", views.cancel_order, name="cancel_order"),
+    path('edit_profile/',views.edit_profile,name='edit_profile'),
+    path('change_password/',views.change_password,name='change_password'),
+    path('add_to_wishlist/<int:id>/',views.add_to_wishlist,name="add_to_wishlist"),
+    path('delete_wishlist/<int:id>/',views.delete_wishlist,name="delete_wishlist"),
+    path('wishlist/',views.wishlist,name='wishlist'),
+    path("add_address/", views.add_address, name="add_address"),
+    path("edit_address/<int:pk>/", views.edit_address, name="edit_address"),
+    path("delete_address/<int:pk>/",views.delete_address,name="delete_address"),
+    path("set_default_address/<int:pk>/",views.set_default_address,name="set_default_address"),
+    path("signinotp", views.signinotp, name="signinotp"),
+    path("otpcheck", views.otpcheck, name="otpcheck"),
+    path("confirm_signup", views.confirm_signup, name="confirm_signup"),
+    path("resend_otp", views.resend_otp, name="resend_otp"),
+]

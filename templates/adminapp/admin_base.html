@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
+	<title>Clickkart Admin Dashboard</title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'vendors/images/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-ck.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'vendors/images/favicon-16x16.png' %}">
+   
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+	<script src="https://kit.fontawesome.com/40ca60b5d8.js" crossorigin="anonymous"></script>
+
+
+	
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/core.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/icon-font.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.bootstrap4.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+	<!-- image cropper -->
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+
+	<!-- sweet alert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<!-- chart js -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-119386393-1');
+	</script>
+</head>
+
+<body>
+	
+
+	<div class="header pb-3">
+		<div class="header-left">
+			<div class="menu-icon bi bi-menu"></div>
+			<div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
+		</div>
+		<div class="header-right">
+			<div class="user-notification">
+				<div class="dropdown">
+					
+				</div>
+			</div>
+			<div class="user-info-dropdown">
+				<div class="dropdown"	>
+					<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" style="text-decoration:none;">
+						<span class="user-icon">
+							<img src="{% static 'images/default-user.png' %}" alt="">
+						</span>
+						<span class="user-name">Admin</span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+						<a class="dropdown-item" href="{% url 'signout' %}"><i class="fas fa-user-tie"></i> Sign Out</a>
+						<a class="dropdown-item" href="{% url 'admin_change_password' %}"><i class="fas fa-user-tie"></i> Change Password</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+    <div class="left-side-bar">
+		<div class="brand-logo" style="background-color: white;">
+			<a href="#">
+				<!-- <h3 style="color: #5271ff;" class="font-weight-bold"><b style="color: #ff1616;">Click</b>Kart</h3> -->
+				<img class="logo" src="{%static './images/ck-logo-3.png'%}">
+			</a>
+			<div class="close-sidebar" data-toggle="left-sidebar-close">
+				<i class="fas fa-plus"></i>
+			</div>
+		</div>
+		<div class="menu-block customscroll">
+			<div class="sidebar-menu">
+				<ul id="accordion-menu">
+					<li class="dropdown">
+						<a href="{% url 'dashboard' %}" class="dropdown-toggle">
+							<i class="fas fa-home mr-2"></i><span class="mtext">Home</span>
+						</a>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<i class="fas fa-user-tie mr-2"></i><span class="mtext"> Manage User</span>
+						</a>
+						<ul class="submenu">
+							<a href="{% url 'activeusers' %}" style="color:white"><i class="fas fa-users m-3 ml-5"></i><span class="mtext">    Active Users</span> </a>>Active Users</a>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<i class="fas fa-laptop mr-2"></i><span class="mtext">Manage Products</span>
+						</a>
+						<ul class="submenu">
+							<li class="dropdown">
+								<a href="javascript:;" class="dropdown-toggle">
+									<span class="fas fa-tshirt m-1 ml-4"></span><span class="mtext">   Products</span>
+								</a>
+								<ul class="submenu child">
+									<a href="{% url 'productlist' %}"><i class="fas fa-tshirt m-1 ml-4"></i><span class="mtext">   Product List</span></a>
+									<a href="{% url 'addproduct' %}"><i class="fas fa-plus m-1 ml-4"></i><span class="mtext">   Add Product</span></a>
+									<a href="{% url 'addproductgallery' %}"><i class="fas fa-plus m-1 ml-4"></i><span class="mtext">   Add Product Gallery</span></a>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="javascript:;" class="dropdown-toggle">
+									<span class="fas fa-shopping-basket m-1 ml-4"></span><span class="mtext">   Category</span>
+								</a>
+								<ul class="submenu child">
+									<a href="{% url 'categorylist' %}"><i class="fas fa-tshirt m-1 ml-4"></i><span class="mtext">   Category List</span></a>
+									<a href="{% url 'addcategory' %}"><i class="fas fa-plus m-1 ml-4"></i><span class="mtext">   Add Category</span></a>
+								</ul>
+							</li>
+							<li class="dropdown">
+								<a href="javascript:;" class="dropdown-toggle">
+									<span class="fas fa-laptop m-1 ml-4"></span><span class="mtext">   Variations</span>
+								</a>
+								<ul class="submenu child">
+									<a href="{% url 'variationlist' %}"><i class="fas fa-certificate m-1 ml-4"></i><span class="mtext">   Variation List</span></a>
+									<a href="{% url 'addvariation' %}"><i class="fas fa-plus m-1 ml-4"></i><span class="mtext">   Add Variation</span></a>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<i class="fas fa-truck mr-2"></i><span class="mtext">Manage Order </span>
+						</a>
+						<ul class="submenu">
+							<a href="{% url 'activeorders' %}" style="color:white"><i class="fas fa-shopping-basket m-3 ml-5"></i><span class="mtext">    Active Orders</span> </a><br>
+							<a href="{% url 'order_history' %}" style="color:white"><i class="fas fa-box-open m-3 ml-5"></i><span class="mtext">    Order History</span> </a>
+						</ul>
+					</li>
+					
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<i class="fas fa-tag mr-2"></i><span class="mtext">Manage Coupons</span>
+						</a>
+						<ul class="submenu">
+							<a href="{% url 'couponlist' %}" style="color:white"><i class="fas fa-money-check-alt m-3 ml-5"></i><span class="mtext">    Existing Coupons</span> </a><br>
+							<a href="{% url 'add_coupon' %}" style="color:white"><i class="fas fa-plus m-3 ml-5"></i><span class="mtext">    Add Coupon</span> </a>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<i class="fas fa-file-pdf mr-2"></i><span class="mtext">Reports</span>
+						</a>
+						<ul class="submenu">
+							<a href="{% url 'product_report' %}" style="color:white"><i class="fas fa-file-alt m-3 ml-5"></i><span class="mtext">    Product Report</span> </a><br>
+							<a href="{% url 'sales_report' %}" style="color:white"><i class="fas fa-file m-3 ml-5"></i><span class="mtext">    Sales Report</span> </a>
+							
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="mobile-menu-overlay"></div>
+
+    {% block maincontainer %}
+    {% endblock %}
+
+	<div class="main-container">
+		{% block content %}
+		{% endblock%}
+	</div>
+
+	<script src="{% static 'js/core.js' %}"></script>
+	<script src="{% static 'js/script.min.js' %}"></script>
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+      $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+    </script>
+	
+
+	<script src="https://kit.fontawesome.com/40ca60b5d8.js" crossorigin="anonymous"></script>
+
+	{%block script%}{%endblock%}
+
+</body>
+</html>

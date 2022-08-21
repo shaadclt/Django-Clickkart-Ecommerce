@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+<body>
+    {% block content %}
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y" style="min-height:84vh">
+
+<!-- ============================ COMPONENT LOGIN   ================================= -->
+	<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+      <div class="card-body">
+      <h4 class="card-title mb-4">Enter Your OTP</h4>
+      {% include 'includes/alerts.html'%}
+      <form action="#" method="POST">
+        {%csrf_token %}
+          <div class="form-group">
+			 <input type="number" class="form-control" placeholder="Enter OTP" name="otpcode">
+          </div> <!-- form-group// -->
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+              <button onclick="window.location.href = '{% url 'resend_otp' %}'; " id="resend" type="button" class="btn btn-primary btn-block">Resend</button>
+          </div> <!-- form-group// -->
+          
+      </form> 
+      <div class="text-center mt-5">
+        <p style="color: red;">Resend OTP in <span class="js-timeout">2:00</span>.</p>
+      </div>
+</section>
+
+<script>
+  var interval;
+
+function countdown() {
+  clearInterval(interval);
+  interval = setInterval( function() {
+      var timer = $('.js-timeout').html();
+      timer = timer.split(':');
+      var minutes = timer[0];
+      var seconds = timer[1];
+      seconds -= 1;
+      if (minutes < 0) return;
+      else if (seconds < 0 && minutes != 0) {
+          minutes -= 1;
+          seconds = 59;
+      }
+      else if (seconds < 10 && length.seconds != 2) seconds = '0' + seconds;
+
+      $('.js-timeout').html(minutes + ':' + seconds);
+
+      if (minutes == 0 && seconds == 0) clearInterval(interval);
+  }, 1000);
+}
+
+$(document).ready(function () {
+  $('.js-timeout').text("1:00");
+  countdown();
+  $("#resend").attr("disabled", "disabled");
+  setTimeout(function() {
+      $("#resend").removeAttr("disabled");      
+  }, 60000);
+});
+
+$('#js-resetTimer').click(function () {
+  $('.js-timeout').text("1:00");
+  clearInterval(interval);
+});
+</script>
+
+<!-- ========================= SECTION CONTENT END// ========================= -->
+{% endblock %}
+</body>
+
+
+<style>
+  .error{
+    color: red!important;
+  }
+ </style> 
