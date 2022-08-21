@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import os
+import django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['clickkart.herokuapp.com']
 
 
 # Application definition
@@ -89,11 +91,11 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config("DB_NAME"),
-        'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASSWORD"),
-        'HOST':config("HOST"),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': "d5s8r3lbsnrr0t",
+        'USER': "qapprgpkrnpyss",
+        'PASSWORD': "403c146dca0de07684c747a3c6875ff701345db69afa2638dd4672ce621a4f12",
+        'HOST':"ec2-54-86-106-48.compute-1.amazonaws.com",
     }
 }
 
@@ -137,8 +139,9 @@ STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
     'clickkart/static',
 ]
+django_heroku.settings(locals())
 
-# media files configuration
+# media files configuration 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
 
