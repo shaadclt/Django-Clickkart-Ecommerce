@@ -2,7 +2,7 @@ asgiref==3.5.2
 awsebcli==3.20.3
 Beaker==1.11.0
 boto3==1.24.56
-botocore==1.24.0
+botocore==1.23.47
 Brotli==1.0.9
 cement==2.8.2
 certifi==2022.6.15
