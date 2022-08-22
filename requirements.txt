@@ -1,7 +1,8 @@
 asgiref==3.5.2
 awsebcli==3.20.3
 Beaker==1.11.0
-botocore==1.23.54
+boto3==1.24.56
+botocore==1.27.56
 Brotli==1.0.9
 cement==2.8.2
 certifi==2022.6.15
@@ -20,6 +21,7 @@ django-crispy-forms==1.14.0
 django-forestadmin==1.3.2
 django-heroku==0.3.1
 django-ipware==4.0.2
+django-storages==1.13.1
 ecdsa==0.17.0
 filelock==3.7.1
 fonttools==4.36.0
@@ -47,14 +49,17 @@ pydyf==0.2.0
 pyjwkest==1.4.2
 PyJWT==2.4.0
 pyphen==0.12.0
+pypiwin32==223
 python-dateutil==2.8.2
 python-decouple==3.6
 python-jose==3.3.0
 pytz==2022.1
+pywin32==304
 PyYAML==5.4.1
 razorpay==1.3.0
 requests==2.26.0
 rsa==4.8
+s3transfer==0.6.0
 semantic-version==2.8.5
 six==1.14.0
 sqlparse==0.4.2
