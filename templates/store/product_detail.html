@@ -79,8 +79,8 @@
         {% if single_product.stock <= 0 %}
         <h5 class='text-danger'> Out of Stock </h5>
         {% else %}
-             <button type="submit" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
-        <a href="{% url 'add_to_wishlist' single_product.id %}" name = 'product' class="btn  btn-outline-primary"> <span class="text">Add to wishlist</span> <i class="fas fa-heart"></i>  </a>
+             <button type="submit" class="btn btn-primary"> <span class="text">Add to cart</span></button>
+        <a href="{% url 'add_to_wishlist' single_product.id %}" name = 'product' class="btn  btn-outline-primary"> <span class="text">Add to wishlist</span></a>
         
         
         {% endif %}

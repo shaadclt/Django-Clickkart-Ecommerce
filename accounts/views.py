@@ -420,14 +420,14 @@ def cancel_order(request,pk):
         item.save()
 
     
-    mail_subject = 'Order Cancellation'
-    message = render_to_string('orders/order_cancelled_email.html', {
-        'user': request.user,
-        'order': order,
-    })
-    to_email = request.user.email
-    send_email = EmailMessage(mail_subject, message, to=[to_email])
-    send_email.send()
+    # mail_subject = 'Order Cancellation'
+    # message = render_to_string('orders/order_cancelled_email.html', {
+    #     'user': request.user,
+    #     'order': order,
+    # })
+    # to_email = request.user.email
+    # send_email = EmailMessage(mail_subject, message, to=[to_email])
+    # send_email.send()
 
     return redirect('my_orders')
     

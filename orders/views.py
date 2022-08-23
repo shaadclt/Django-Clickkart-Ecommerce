@@ -189,14 +189,14 @@ def paymenthandler(request, total=0, quantity=0):
                     CartItem.objects.filter(user=request.user).delete()
                     
                    # Send order recieved email to customer
-                    mail_subject = 'Thank you for your order!'
-                    message = render_to_string('orders/order_recieved_email.html', {
-                        'user': request.user,
-                        'order': order,
-                    })
-                    to_email = request.user.email
-                    send_email = EmailMessage(mail_subject, message, to=[to_email])
-                    send_email.send()
+                    # mail_subject = 'Thank you for your order!'
+                    # message = render_to_string('orders/order_recieved_email.html', {
+                    #     'user': request.user,
+                    #     'order': order,
+                    # })
+                    # to_email = request.user.email
+                    # send_email = EmailMessage(mail_subject, message, to=[to_email])
+                    # send_email.send()
 
                     # Send Transaction Successfull
                     param = (
