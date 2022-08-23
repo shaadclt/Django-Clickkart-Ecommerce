@@ -210,17 +210,17 @@ def paymenthandler(request, total=0, quantity=0):
                 
                 except Exception as e:
                     # If there is an error while capturing payment
-                    messages.error(request,"Payment Failed")
+                    messages.error(request,"Payment Failed1")
                     return redirect("place_order")
 
             else:
-                messages.error(request,"Payment Failed")
+                messages.error(request,"Payment Failed2")
                 return redirect("place_order")
                 
                 # if signature verification fails
 
         except:
-            messages.error(request,"Payment Failed")
+            messages.error(request,"Payment Failed3")
             return redirect("place_order")
             
             # If required parameters in not found in POST data
