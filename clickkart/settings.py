@@ -29,7 +29,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['clickkart.herokuapp.com',"*"]
+ALLOWED_HOSTS = ["*"]
 
 
 
@@ -94,10 +94,10 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "d5s8r3lbsnrr0t",
-        'USER': "qapprgpkrnpyss",
-        'PASSWORD': "403c146dca0de07684c747a3c6875ff701345db69afa2638dd4672ce621a4f12",
-        'HOST':"ec2-54-86-106-48.compute-1.amazonaws.com",
+        'NAME': "clickkart",
+        'USER': "postgres",
+        'PASSWORD': "123456",
+        'HOST':"localhost",
     }
 }
 
