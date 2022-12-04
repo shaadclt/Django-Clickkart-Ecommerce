@@ -1,6 +1,6 @@
 # Django Clickkart Ecommerce
 
-An ecommerce website built using Django web framework named Clickkart.
+Men's Apparel ecommerce website built using Django web framework named Clickkart.
 
 Features:
 
