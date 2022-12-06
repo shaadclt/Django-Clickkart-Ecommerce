@@ -2,6 +2,8 @@
 
 Men's Apparel ecommerce website built using Django web framework named Clickkart.
 
+![image](https://user-images.githubusercontent.com/98437584/205892146-07e93fde-805a-4730-8a07-299d7c58e671.png)
+
 Features:
 
 User Side:
