@@ -40,7 +40,7 @@ cd Django-Clickkart-Ecommerce
 ```
 
 3. Install the required dependencies:
-4. 
+   
 ```shell
 pip install -r requirements.txt
 ```
